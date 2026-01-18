@@ -1,0 +1,406 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="sr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Milenini kolači – Ponuda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google fontovi (nije obavezno, ali je lepo) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf4ef;
+      --bg-alt: #f3e3d7;
+      --text: #3b2a25;
+      --accent: #d48d6a;
+      --accent-dark: #b06d4b;
+      --card-bg: #ffffff;
+      --border-soft: #e7d3c2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      color: var(--text);
+      background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+      url("{% static 'img/poyadina.jpeg' %}") center/cover fixed no-repeat;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER / NAVBAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 244, 239, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(183, 141, 110, 0.18);
+    }
+
+    .nav-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      font-size: 12px;
+      display: block;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8e6a53;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      padding: 6px 4px;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s ease-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-dark);
+    }
+
+    /* GLAVNI KONTEJNER */
+    main {
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      padding: 24px 18px 40px;
+      background: rgba(250, 244, 239, 0.97);
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.40);
+    }
+
+    /* NASLOV STRANICE */
+    .page-title {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      margin: 0 0 10px;
+    }
+
+    .page-sub {
+      font-size: 14px;
+      color: #8c6a53;
+      max-width: 460px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 26px;
+      margin: 0 0 6px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: #8c6a53;
+      max-width: 460px;
+    }
+
+    /* KARTICE */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 18px;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      /* animacija – početno stanje */
+      opacity: 0;
+      transform: translateY(30px) scale(0.97);
+    }
+
+    /* klasa koja se dodaje iz JS da pokrene animaciju */
+    .card.card-pop {
+      animation: popCards 0.65s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    }
+
+    @keyframes popCards {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      60% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.02);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      max-height: 210px;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #a87554;
+      margin-top: 4px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .card-text {
+      font-size: 13px;
+      color: #6f5240;
+    }
+
+    .card-meta {
+      font-size: 12px;
+      color: #9b7760;
+      margin-top: 4px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(183, 141, 110, 0.2);
+      padding: 14px 18px 18px;
+      font-size: 12px;
+      text-align: center;
+      color: #f2e0d1;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      nav {
+        display: none;
+      }
+
+      .page-title {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-wrapper">
+      <div class="logo">
+        Milenini kolači
+        <span>domaće · sveže · po porudžbini</span>
+      </div>
+
+      <nav>
+        <a href="{% url 'home' %}">Početna</a>
+        <a href="{% url 'ponuda' %}">Ponuda</a>
+        <a href="{% url 'onama' %}">O nama</a>
+        <a href="{% url 'kontakt' %}">Kontakt</a>
+      </nav>
+
+      <!-- Na stranici ponuda dugme vodi na kontakt stranu -->
+      <button class="nav-cta" onclick="window.location.href='{% url 'kontakt' %}'">
+        Pošalji upit
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- NASLOV STRANICE -->
+    <section>
+      <h1 class="page-title">Ponuda kolača</h1>
+      <p class="page-sub">
+        Detaljnija ponuda – podeljeno po kategorijama. Na fotografijama su tvoji kolači,
+        a količine i kombinacije dogovaramo u poruci.
+      </p>
+    </section>
+
+    <!-- SLATKI KOLAČI -->
+    <section>
+      <h2 class="section-title">Slatki kolači</h2>
+      <p class="section-sub">
+        Sitni kolači, tacne, bajadera, ruske kape, princes krofne… Idealno za slave, rođendane
+        i svako slavlje gde želiš „po malo od svega“.
+      </p>
+
+      <div class="cards">
+        <!-- KARAMEL ROZEN -->
+        <article class="card">
+          <img src="{% static 'img/karamel.jpg.jpeg' %}" alt="Karamel rozen">
+          <div class="card-tag">slatko</div>
+          <div class="card-title">Karamel rozen</div>
+          <p class="card-text">
+            Savršeno balansiran spoj tankih rozen kora, nežnog karamel fila i fine čokoladne glazure.
+            Kremast, sočan i vizuelno uredan kolač koji izgleda bogato na tacni i uvek privuče pažnju.
+            Karamel daje poseban, pun ukus zbog kog se ovaj kolač prvi razgrabi — idealan za sve vrste slavlja. Cena:
+            1400din/kg
+          </p>
+          <div class="card-meta">
+            Preporuka: deo mešanih tacni ili posebna tacna samo sa karamel rozenom.
+          </div>
+        </article>
+
+        <!-- RUSKE KAPE -->
+        <article class="card">
+          <img src="{% static 'img/ruske_kape.jpg.jpeg' %}" alt="Ruske kape">
+          <div class="card-tag">slatko</div>
+          <div class="card-title">Ruske kape</div>
+          <p class="card-text">
+            Mekane, sočne, sa čokoladom i kokosom. Izgledaju dekorativno i daju
+            „wow“ efekat na tacni, posebno na slatkom stolu.
+            Cena: 1500din/kg
+          </p>
+          <div class="card-meta">
+            Preporuka: u kombinaciji sa karamel rozenom, bajaderom i drugim sitnim kolačima.
+          </div>
+        </article>
+
+        <!-- BAJADERA -->
+        <article class="card">
+          <img src="{% static 'img/bajadera.jpeg' %}" alt="Bajadera">
+          <div class="card-tag">slatko</div>
+          <div class="card-title">Bajadera</div>
+          <p class="card-text">
+            Klasična domaća bajadera sa mlevenim keksom, orasima ili lešnikom i bogatom
+            čokoladnom glazurom. Sitna, ali “opasno” zasitna – jedan zalogaj pun ukusa,
+            kao mali luksuz na tacni. Cena: 1400din/kg
+          </p>
+          <div class="card-meta">
+            Preporuka: mešane tacne sa više vrsta sitnih kolača ili posebna tacna samo sa bajaderom.
+          </div>
+        </article>
+
+        <!-- PRINCES KROFNE -->
+        <article class="card">
+          <img src="{% static 'img/princez_krofne.jpg.jpeg' %}" alt="Princes krofne">
+          <div class="card-tag">slatko</div>
+          <div class="card-title">Princes krofne (mini)</div>
+          <p class="card-text">
+            Pufnaste krofnice sa žutim i/ili belim filom, posute šećerom u prahu.
+            Uvek prve nestanu – omiljene i deci i odraslima. Cena: 1300din/kg
+          </p>
+          <div class="card-meta">
+            Preporuka: poseban stalak sa princes krofnama na sredini slatkog stola.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SLANO – SAMO KIFLICE -->
+    <section>
+      <h2 class="section-title">Slano posluženje</h2>
+      <p class="section-sub">
+        Za trenutke kada želiš da uz slatko imaš i nešto konkretno da se prezalogaji.
+        Idealno za slave, rođendane, okupljanja sa društvom ili posao.
+      </p>
+
+      <div class="cards">
+        <!-- KIFLICE -->
+        <article class="card">
+          <img src="{% static 'img/kiflice_slanesir.jpg.jpeg' %}" alt="Slane kiflice">
+          <div class="card-tag">slano</div>
+          <div class="card-title">Domaće kiflice sa sirom</div>
+          <p class="card-text">
+            Mekane, mirisne kiflice punjene sirom. Lako se jedu „iz ruke“ i odlično
+            idu uz sokove, kafu ili vino – savršene za svaku proslavu. Cena: 800/900/1000din/kg (zavisi od nadeva)
+          </p>
+          <div class="card-meta">
+            Preporuka: kombinacija tacne sa kiflicama + tacne sa slatkim kolačima.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Milenini kolači – domaći kolači po porudžbini. Sva prava zadržana.
+  </footer>
+
+  <script>
+    // Kada se stranica učita, kartice "iskaču" jedna za drugom
+    document.addEventListener('DOMContentLoaded', function () {
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach((card, index) => {
+        const delay = 0.15 * index; // sekunde razmaka
+        card.style.animationDelay = delay + 's';
+        card.classList.add('card-pop');
+      });
+    });
+  </script>
+</body>
+
+</html>

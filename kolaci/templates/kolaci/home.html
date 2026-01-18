@@ -1,0 +1,728 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="sr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Milenini kolači – Početna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf4ef;
+      --bg-alt: #f3e3d7;
+      --text: #3b2a25;
+      --accent: #d48d6a;
+      --accent-dark: #b06d4b;
+      --card-bg: #ffffff;
+      --border-soft: #e7d3c2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      color: var(--text);
+
+      /* Pozadina celog sajta */
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url("{% static 'img/poyadina.jpeg' %}") center/cover fixed no-repeat;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* HEADER / NAVBAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 244, 239, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(183, 141, 110, 0.18);
+    }
+
+    .nav-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      font-size: 12px;
+      display: block;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8e6a53;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      text-decoration: none;
+      padding: 6px 4px;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s ease-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-dark);
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      padding: 24px 18px 40px;
+      background: rgba(250, 244, 239, 0.96);
+      /* skoro beo papir */
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* HERO SEKCIJA */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      padding: 40px 0 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #f1ded1;
+      color: #7e5b46;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: 38px;
+      margin: 14px 0 10px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: #7e5b46;
+      margin-bottom: 18px;
+      max-width: 480px;
+    }
+
+    .hero-highlight {
+      background: rgba(212, 141, 106, 0.12);
+      border-radius: 16px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .hero-highlight strong {
+      color: var(--accent-dark);
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: #8c6a53;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #3b2a25, #5a3e2d);
+      color: #fdf5ee;
+      border-radius: 26px;
+      padding: 20px 20px 18px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-title {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin: 0 0 6px;
+    }
+
+    .hero-card-sub {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 14px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(250, 244, 239, 0.12);
+      border: 1px solid rgba(250, 244, 239, 0.25);
+    }
+
+    .hero-pills-row {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      background: rgba(250, 244, 239, 0.15);
+      padding: 7px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+    }
+
+    .pill strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .hero-sticker {
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+      background: #f7e1c2;
+      color: #3b2a25;
+      padding: 7px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-badge-small {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(250, 244, 239, 0.18);
+      border: 1px solid rgba(250, 244, 239, 0.4);
+    }
+
+    /* INFO BAR (brojke) */
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0 40px;
+    }
+
+    .info-item {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid var(--border-soft);
+      text-align: center;
+    }
+
+    .info-number {
+      font-size: 18px;
+      font-weight: 600;
+      font-family: "Playfair Display", serif;
+    }
+
+    .info-label {
+      font-size: 12px;
+      color: #8c6a53;
+    }
+
+    /* SEKCIJE */
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: #8c6a53;
+      max-width: 360px;
+    }
+
+    /* KORACI – kako poručiti */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 14px 14px 12px;
+      border: 1px dashed var(--border-soft);
+    }
+
+    .step-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: #6f5240;
+    }
+
+    /* RECENZIJE */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .testimonial {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border-soft);
+      font-size: 13px;
+      position: relative;
+    }
+
+    .testimonial::before {
+      content: "“";
+      position: absolute;
+      font-size: 40px;
+      color: rgba(212, 141, 106, 0.25);
+      top: -10px;
+      left: 8px;
+    }
+
+    .testimonial-text {
+      margin: 8px 0 6px;
+      color: #6f5240;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .testimonial-meta {
+      font-size: 11px;
+      color: #9b7760;
+    }
+
+    /* KONTAKT BLOK */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .contact-box {
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 12px;
+    }
+
+    .contact-box h3 {
+      margin-top: 0;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .contact-row {
+      font-size: 13px;
+      margin: 4px 0;
+    }
+
+    .contact-label {
+      font-weight: 600;
+    }
+
+    .contact-highlight {
+      font-size: 12px;
+      color: #8c6a53;
+      margin-top: 6px;
+    }
+
+    .contact-note {
+      font-size: 12px;
+      color: #8c6a53;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(183, 141, 110, 0.2);
+      padding: 14px 18px 18px;
+      font-size: 12px;
+      text-align: center;
+      color: #8c6a53;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .info-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      nav {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 30px;
+      }
+
+      .info-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .info-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-wrapper">
+      <div class="logo">
+        Milenini kolači
+        <span>domaće · sveže · po porudžbini</span>
+      </div>
+      <nav>
+        <a href="{% url 'home' %}">Početna</a>
+        <a href="{% url 'ponuda' %}">Ponuda</a>
+        <a href="{% url 'onama' %}">O nama</a>
+        <a href="{% url 'kontakt' %}">Kontakt</a>
+      </nav>
+
+      <button class="nav-cta" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
+        Pošalji upit
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          sitni kolači · rozen · princes krofne
+        </div>
+        <h1 class="hero-title">Domaći kolači bez cimanja u kuhinji</h1>
+        <p class="hero-subtitle">
+          Mešani sitni kolači, princes krofne, rozen, bajadera, kuglice i još mnogo toga –
+          sve ručno pravljeno, kao da si sama pravila, samo što ne pereš sudove.
+        </p>
+        <div class="hero-highlight">
+          <strong>Milenini kolači</strong> su idealni za slave, rođendane, krštenja,
+          punoletstva, druženja ili kad želiš da „počastiš ekipu“ na poslu.
+        </div>
+
+        <div class="hero-note">
+          *Porudžbine idealno unapred nekoliko dana – pogotovo za veće količine i slavlja.
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-badge-small">slatki sto · tacne · mix</div>
+          <h2 class="hero-card-title">Slatki sto po tvojoj meri</h2>
+          <p class="hero-card-sub">
+            Kombinacija sitnih kolača, rozen, bajadere, kuglica, ruskih kapa
+            i princes krofni, složenih na tacne, spremnih da ih odmah izneseš pred goste.
+          </p>
+          <div class="hero-tags">
+            <div class="hero-tag">bez industrijskog ukusa</div>
+            <div class="hero-tag">ručni rad</div>
+            <div class="hero-tag">prilagođeno tebi</div>
+          </div>
+          <div class="hero-pills-row">
+            <div class="pill">
+              <strong>Mix sitnih kolača</strong>
+              5–8 različitih vrsta na jednoj tacni – za one koji vole „po malo od svega“.
+            </div>
+            <div class="pill">
+              <strong>Princes krofne</strong>
+              Pufnaste krofnice, žuti fil, šećer u prahu – klasik koji svi vole.
+            </div>
+          </div>
+          <div class="hero-sticker">
+            Batajnica · Beograd
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANER SLIKA -->
+    <section style="margin: 40px 0;">
+      <img src="{% static 'img/cokolada.jpg' %}" alt="Baner" style="
+             width: 100%;
+             max-height: 260px;
+             object-fit: cover;
+             border-radius: 16px;
+             box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+           ">
+    </section>
+
+    <!-- INFO BAR -->
+    <section class="info-bar">
+      <div class="info-item">
+        <div class="info-number">5+ godina</div>
+        <div class="info-label">pravljenja kolača za porodicu, prijatelje i mušterije</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-number">fleksibilno</div>
+        <div class="info-label">kombinacije i količine po dogovoru – od jedne tacne do slatkog stola</div>
+      </div>
+    </section>
+
+    <!-- KAKO PORUČITI -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Kako izgleda porudžbina?</h2>
+        <p class="section-sub">
+          Da ne komplikujemo – dovoljno je par poruka da se sve dogovorimo. Ako nisi sigurna
+          šta tačno hoćeš, pomoći ću ti da izabereš.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-title">Pošalješ poruku</div>
+          <p class="step-text">
+            Napišeš datum, priliku (slava, rođendan, posao…), okviran broj ljudi i da li želiš
+            sitne kolače, princes krofne, kuglice, rozen…
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-title">Dogovorimo kombinaciju</div>
+          <p class="step-text">
+            Predložim količinu i kombinaciju kolača, ti kažeš šta ti se sviđa i da li hoćeš izmene
+            (više čokolade, bez oraha, posno za neke goste…).
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-title">Preuzimanje ili dostava</div>
+          <p class="step-text">
+            Kolači te čekaju složeni na tacne, spremni da ih izneseš pred goste. Nema spremanja,
+            nema haosa u kuhinji – samo izneseš i uživaš.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENZIJE -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Šta kažu ljudi koji su probali?</h2>
+        <p class="section-sub">
+          Ovo su tipične reakcije kada gosti shvate da kolači nisu iz poslastičarnice, već domaće
+          pravi osoba koja stvarno voli da ih pravi.
+        </p>
+      </div>
+
+      <div class="testimonials">
+        <article class="testimonial">
+          <p class="testimonial-text">
+            „Na slavi su svi pitali odakle su kolači. Posebno princes krofne – bukvalno
+            su nestale prve. Nije ostala ni jedna za sutradan.“
+          </p>
+          <div class="testimonial-name">Maja</div>
+          <div class="testimonial-meta">slava · Batajnica</div>
+        </article>
+
+        <article class="testimonial">
+          <p class="testimonial-text">
+            „Uzeli smo mix sitnih kolača za rođendan. Tacne su izgledale prelepo na slikama,
+            a ukusi su baš kao kod kuće – bez onog industrijskog šmeka.“
+          </p>
+          <div class="testimonial-name">Ivana</div>
+          <div class="testimonial-meta">dečiji rođendan · Zemun</div>
+        </article>
+
+        <article class="testimonial">
+          <p class="testimonial-text">
+            „Kolege sa posla su me pitali iz koje poslastičarnice su kolači. Oseća se da nije
+            fabrički. Sledeći put uzimamo dve tacne više.“
+          </p>
+          <div class="testimonial-name">Marko</div>
+          <div class="testimonial-meta">posao · Novi Beograd</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- KONTAKT BLOK NA DNU POČETNE -->
+    <section id="kontakt">
+      <div class="section-header">
+        <h2 class="section-title">Kontakt i porudžbine</h2>
+        <p class="section-sub">
+          Najbrže je da pošalješ poruku preko Whatsapp-a ili Instagrama.
+        </p>
+      </div>
+
+      <div class="contact-wrapper">
+        <div class="contact-box">
+          <h3>Kako da pošalješ upit?</h3>
+          <p class="contact-row">
+            <span class="contact-label">Korak 1:</span> napiši datum i povod (slava, rođendan, krštenje…)
+
+          </p>
+          <p class="contact-row">
+            <span class="contact-label">Korak 2:</span> reci da li želiš sitne kolače, princes krofne,
+            kuglice, rozen… ili mix tacne.
+          </p>
+          <p class="contact-row">
+            <span class="contact-label">Korak 3:</span> dodaj želje (više čokolade, bez oraha, posno… ako je bitno).
+          </p>
+          <p class="contact-highlight">
+            Ako ne znaš koliko ti tačno treba – slobodno reci samo povod i broj ljudi,
+            pa ćeš dobiti predlog kombinacije i količine.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <h3>Kontakt podaci</h3>
+          <p class="contact-row">
+            <span class="contact-label">Lokacija:</span> Batajnica, Beograd
+          </p>
+          <p class="contact-row">
+            <span class="contact-label">Telefon / Viber:</span> 060 / 193 - 83 - 73
+          </p>
+          <p class="contact-row">
+            <span class="contact-label">Instagram:</span> @zivkovicmilena__
+          </p>
+          <p class="contact-note">
+            Slobodno piši poruku – dogovor je uvek fleksibilan.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Milenini kolači – domaći kolači po porudžbini. Sva prava zadržana.
+  </footer>
+
+</body>
+
+</html>
