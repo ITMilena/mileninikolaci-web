@@ -9,5 +9,8 @@ def ponuda(request):
 def kontakt(request):
     return render(request, 'kolaci/kontakt.html')
 
+def onama(request):
+    return render(request, 'kolaci/onama.html')
+
 
 
