@@ -25,11 +25,8 @@ SECRET_KEY = 'django-insecure-o^76iid!l!@_itvklu%4w0)g0r686x21*vs04@eqp*w#0401g_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "mileninikolaci-web.onrender.com",
-    "127.0.0.1",
-    "localhost"
-]
+ALLOWED_HOSTS = ["*", ".onrender.com", "localhost", "127.0.0.1"]
+
 
 
 # Application definition
@@ -125,4 +122,5 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'kolaci' / 'static',
 ]
+
 
