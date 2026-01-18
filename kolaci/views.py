@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-def pocetna(request):
+def home(request):
     return render(request, 'kolaci/home.html')
 
 def ponuda(request):
@@ -8,5 +8,6 @@ def ponuda(request):
 
 def kontakt(request):
     return render(request, 'kolaci/kontakt.html')
+
 
 
