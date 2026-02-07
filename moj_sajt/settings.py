@@ -18,14 +18,15 @@ SECRET_KEY = os.getenv(
 )
 
 # DEBUG: lokalno True, na Renderu postavi DEBUG=0 ili DEBUG=False u env var
-DEBUG = os.getenv("DEBUG", "True").lower() in ("1", "true", "yes", "y")
+DEBUG = False
 
 # Render domen + lokalno
 ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
     "mileninikolaci-web.onrender.com",
+    "localhost",
+    "127.0.0.1"
 ]
+
 
 # Ako budeš kupila domen kasnije, dodaš ga ovde, npr:
 # "mileninikolaci.rs",
@@ -118,20 +119,18 @@ USE_TZ = True
 # =========================
 #  STATIC FILES (WhiteNoise)
 # =========================
-STATIC_URL = "static/"
+# Static files (CSS, JavaScript, Images)
 
-# Render/production: collectstatic ide ovde
+STATIC_URL = "/static/"
+
+# Render/production: collectstatic skuplja sve ovde
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Lokalno: gde su ti slike/css (ti već imaš kolaci/static)
-STATICFILES_DIRS = [
-    BASE_DIR / "kolaci" / "static",
-]
+# Lokalno: gde su tvoji statički fajlovi (kolaci/static)
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / "kolaci" / "static",
+    ]
 
 # WhiteNoise optimizacija
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-# =========================
-#  DEFAULT PK
-# =========================
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
